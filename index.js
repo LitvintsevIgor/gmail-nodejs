@@ -3,14 +3,15 @@ const nodemailer = require("nodemailer");
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const port = 3010
+const port = process.env.PORT || 3010
+const smtp_login = process.env.SMTP_LOGIN || "---"
+const smtp_password = process.env.SMTP_PASSWORD || "---"
 
 app.use(cors())
 
-// parse application/x-www-form-urlencoded
+
 app.use(bodyParser.urlencoded({extended: false}))
 
-// parse application/json
 app.use(bodyParser.json())
 
 let transporter = nodemailer.createTransport({
@@ -23,8 +24,8 @@ let transporter = nodemailer.createTransport({
     //     rejectUnauthorized: false
     // },
     auth: {
-        user: "forportfolioemail@gmail.com", // generated ethereal user
-        pass: "53Kvartira", // generated ethereal password
+        user: smtp_login, // generated ethereal user
+        pass: smtp_password, // generated ethereal password
     },
 });
 
